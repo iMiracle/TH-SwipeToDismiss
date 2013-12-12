@@ -1,10 +1,62 @@
-Android Swipe-to-Dismiss Sample Code
+TH-SwipeToDismiss
 ====================================
 
-Sample code that shows how to make `ListView` or other views support the swipe-to-dismiss Android UI pattern.
+Sample code that shows how to make `ListView` support the swipe-to-dismiss Android UI pattern with feedback.
+How to use:
 
-See the original [Google+ post](https://plus.google.com/+RomanNurik/posts/Fgo1p5uWZLu) for discussion.
+1. Add the `SwipeListViewTouchListener.java` to your project.
+2. Add the `SwipeListViewTouchListner` to your listView as shown below:
 
-See also [Jake Wharton's port](https://github.com/JakeWharton/SwipeToDismissNOA) of this sample code to old versions of Android using the [NineOldAndroids](http://nineoldandroids.com/) compatibility library.
+			SwipeListViewTouchListener touchListener = new SwipeListViewTouchListener(
+				listView, new SwipeListViewTouchListener.OnSwipeCallback() {
+					@Override
+					public void onSwipeLeft(ListView listView,
+							int[] reverseSortedPositions) {
 
-<img src="https://lh4.googleusercontent.com/-b0pxPcJBF1o/T-ZWx9NZSRI/AAAAAAAAe_Q/PAKmNzGSbzs/w635-h688-no/foo.png" width="300">
+						if (reverseSortedPositions != null
+								&& reverseSortedPositions.length > 0) {
+							for (int i : reverseSortedPositions) {
+
+								customAdapter.remove(i);
+							}
+							customAdapter.notifyDataSetChanged();
+						}
+
+					}
+
+					@Override
+					public void onSwipeRight(ListView listView,
+							int[] reverseSortedPositions) {
+
+						if (reverseSortedPositions != null
+								&& reverseSortedPositions.length > 0) {
+							for (int i : reverseSortedPositions) {
+
+								customAdapter.remove(i);
+							}
+							customAdapter.notifyDataSetChanged();
+						}
+					}
+				}, true,
+				true);
+				
+3. Set the touchListener to your listView: 
+ 	
+ 		listView.setOnTouchListener(touchListener); 
+		listView.setOnScrollListener(touchListener.makeScrollListener());
+		
+ 
+4. Include the `remove(int position)` method in your adapter as shown in `CustomAdapter.java`.
+
+5. Set your desired color by changing the color in SwipeListViewTouchListener.java
+
+		mDownView.setBackgroundColor(Color.GREEN);
+		
+
+ 
+
+ ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/Right%20Swipe.png "Right Swipe")
+ ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/Left%20Swipe.png "Left Swipe")
+ 
+See the original [Roman Nurik's Android-SwipeToDismiss](https://plus.google.com/+RomanNurik/posts/Fgo1p5uWZLu).
+
