@@ -1,116 +1,91 @@
-/*
- * Copyright 2013 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.android.swipedismiss;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+public class MainActivity extends ListActivity { 
+	
+	CustomAdapter customAdapter;
 
-public class MainActivity extends ListActivity {
-    ArrayAdapter<String> mAdapter;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		ListView listView = (ListView) findViewById(android.R.id.list);
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+		List<String> list = new ArrayList<String>();
+		list.add("Line 1");
+		list.add("Line 2");
+		list.add("Line 3");
+		list.add("Line 4");
+		list.add("Line 5");
+		list.add("Line 6");
+		list.add("Line 7");
+		list.add("Line 8");
+		list.add("Line 9");
+		list.add("Line 10");
+		list.add("Line 11");
+		list.add("Line 12");
+		list.add("Line 13");
+		list.add("Line 14");
+		list.add("Line 15");  
+		
 
-        // Set up ListView example
-        String[] items = new String[20];
-        for (int i = 0; i < items.length; i++) {
-            items[i] = "Item " + (i + 1);
-        }
+		customAdapter = new CustomAdapter(getApplicationContext(), list);
 
-        mAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                new ArrayList<String>(Arrays.asList(items)));
-        setListAdapter(mAdapter);
+		// Set your CustomAdapter to your ListView
+		listView.setAdapter(customAdapter);
+		// Set the SwipeListViewTouchListener to look for Swipe and perform
+		// relevant actions
+		SwipeListViewTouchListener touchListener = new SwipeListViewTouchListener(
+				listView, new SwipeListViewTouchListener.OnSwipeCallback() {
+					@Override
+					public void onSwipeLeft(ListView listView,
+							int[] reverseSortedPositions) {
 
-        ListView listView = getListView();
-        // Create a ListView-specific touch listener. ListViews are given special treatment because
-        // by default they handle touches for their list items... i.e. they're in charge of drawing
-        // the pressed state (the list selector), handling list item clicks, etc.
-        SwipeDismissListViewTouchListener touchListener =
-                new SwipeDismissListViewTouchListener(
-                        listView,
-                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
-                            @Override
-                            public boolean canDismiss(int position) {
-                                return true;
-                            }
+						if (reverseSortedPositions != null
+								&& reverseSortedPositions.length > 0) {
+							for (int i : reverseSortedPositions) {
+								customAdapter.remove(i);
+							}
+							Toast.makeText(getApplicationContext(),
+									"Left swipe", Toast.LENGTH_SHORT).show();
+							customAdapter.notifyDataSetChanged();
+						}
 
-                            @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
-                                for (int position : reverseSortedPositions) {
-                                    mAdapter.remove(mAdapter.getItem(position));
-                                }
-                                mAdapter.notifyDataSetChanged();
-                            }
-                        });
-        listView.setOnTouchListener(touchListener);
-        // Setting this scroll listener is required to ensure that during ListView scrolling,
-        // we don't look for swipes.
-        listView.setOnScrollListener(touchListener.makeScrollListener());
+					}
 
-        // Set up normal ViewGroup example
-        final ViewGroup dismissableContainer = (ViewGroup) findViewById(R.id.dismissable_container);
-        for (int i = 0; i < items.length; i++) {
-            final Button dismissableButton = new Button(this);
-            dismissableButton.setLayoutParams(new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            dismissableButton.setText("Button " + (i + 1));
-            dismissableButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(MainActivity.this,
-                            "Clicked " + ((Button) view).getText(),
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
-            // Create a generic swipe-to-dismiss touch listener.
-            dismissableButton.setOnTouchListener(new SwipeDismissTouchListener(
-                    dismissableButton,
-                    null,
-                    new SwipeDismissTouchListener.DismissCallbacks() {
-                        @Override
-                        public boolean canDismiss(Object token) {
-                            return true;
-                        }
+					@Override
+					public void onSwipeRight(ListView listView,
+							int[] reverseSortedPositions) {
 
-                        @Override
-                        public void onDismiss(View view, Object token) {
-                            dismissableContainer.removeView(dismissableButton);
-                        }
-                    }));
-            dismissableContainer.addView(dismissableButton);
-        }
-    }
+						if (reverseSortedPositions != null
+								&& reverseSortedPositions.length > 0) {
+							for (int i : reverseSortedPositions) {
 
-    @Override
-    protected void onListItemClick(ListView listView, View view, int position, long id) {
-        Toast.makeText(this,
-                "Clicked " + getListAdapter().getItem(position).toString(),
-                Toast.LENGTH_SHORT).show();
-    }
+								customAdapter.remove(i);
+							}
+							Toast.makeText(getApplicationContext(),
+									"Right swipe", Toast.LENGTH_SHORT).show();
+							customAdapter.notifyDataSetChanged();
+						}
+					}
+				}, true, // Left swipe action = dismiss. set it to false to
+							// dismiss without animation
+				true); // Right swipe action = dismiss. Set it to false to
+						// dismiss without animation
+
+		listView.setOnTouchListener(touchListener);
+		// Setting this scroll listener is required to ensure that during
+		// ListView scrolling, we don't look for swipes.
+		listView.setOnScrollListener(touchListener.makeScrollListener());
+
+	}
+
 }
