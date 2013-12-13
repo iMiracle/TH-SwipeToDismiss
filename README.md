@@ -1,8 +1,11 @@
 TH-SwipeToDismiss
 ====================================
 
-Sample code that shows how to make `ListView` support the swipe-to-dismiss Android UI pattern with feedback.
-How to use:
+A mini-library/sample code that shows how to make a `ListView` support the swipe-to-dismiss Android UI pattern with feedback.
+
+![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/TH-SwipeToDismiss.gif "")
+
+## How to use:
 
 1. Add the `SwipeListViewTouchListener.java` to your project.
 2. Add the `SwipeListViewTouchListner` to your listView as shown below:
@@ -55,8 +58,7 @@ How to use:
 
  
 
- ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/Right%20Swipe.png "Right Swipe")
- ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/Left%20Swipe.png "Left Swipe")
  
-See the original [Roman Nurik's Android-SwipeToDismiss](https://plus.google.com/+RomanNurik/posts/Fgo1p5uWZLu).
+ 
+See the original [Roman Nurik's Android-SwipeToDismiss](https://github.com/romannurik/Android-SwipeToDismiss).
 
