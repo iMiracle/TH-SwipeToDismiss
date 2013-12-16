@@ -2,6 +2,7 @@ TH-SwipeToDismiss
 ====================================
 
 A mini-library/sample code that shows how to make a `ListView` support the swipe-to-dismiss Android UI pattern with feedback.
+Check out the ![demo app](https://play.google.com/store/apps/details?id=com.thbs.swipetodismiss "TH-SwipeToDismiss Demo") to see how it works.
 
 ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/TH-SwipeToDismiss.gif "")
 
