@@ -58,7 +58,8 @@ Check out the ![demo app](https://play.google.com/store/apps/details?id=com.thbs
 		
 
  
-
+## Are you using this framework?
+   If you are using this framework in your app, please feel free to add your app to the [wiki](https://github.com/torryharris/TH-SwipeToDismiss/wiki/Wiki) 
  
  
 See the original [Roman Nurik's Android-SwipeToDismiss](https://github.com/romannurik/Android-SwipeToDismiss).
