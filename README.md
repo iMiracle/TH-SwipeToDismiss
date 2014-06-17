@@ -2,7 +2,6 @@ TH-SwipeToDismiss
 ====================================
 
 A mini-library/sample code that shows how to make a `ListView` support the swipe-to-dismiss Android UI pattern with feedback.
-Check out the [demo app](https://play.google.com/store/apps/details?id=com.thbs.swipetodismiss) to see how it works.
 
 ![alt text](https://raw.github.com/torryharris/TH-SwipeToDismiss/master/TH-SwipeToDismiss.gif "")
 
@@ -57,6 +56,11 @@ Check out the [demo app](https://play.google.com/store/apps/details?id=com.thbs.
 		mDownView.setBackgroundColor(Color.GREEN);
 		
 
+##Demo
+<a href="https://play.google.com/store/apps/details?id=com.thbs.swipetodismiss">
+  <img alt="Get it on Google Play"
+       src="https://developer.android.com/images/brand/en_generic_rgb_wo_60.png" />
+</a>
  
 ## Are you using this framework?
    If you are using this framework in your app, please feel free to add your app to the [wiki](https://github.com/torryharris/TH-SwipeToDismiss/wiki/Wiki) 
